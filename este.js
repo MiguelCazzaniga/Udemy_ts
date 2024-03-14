@@ -1,7 +1,12 @@
-function add(n1, n2) {
-    return n1 + n2;
-}
-function printResult(p1) {
-    console.log("The result is: " + p1);
-}
-printResult(add(3, 5));
+var Department = /** @class */ (function () {
+    function Department(n) {
+        this.name = n;
+    }
+    Department.prototype.mostrar = function () {
+        console.log("resultado " + this.name);
+    };
+    return Department;
+}());
+var prueba = new Department(" amigo");
+console.log(prueba);
+prueba.mostrar();

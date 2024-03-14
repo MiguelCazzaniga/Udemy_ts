@@ -1,9 +1,15 @@
-function add(n1:number,n2:number){
-    return n1+n2
+class Department{
+    name:string;
+
+    constructor(n:string){
+        this.name=n
+    }
+mostrar(){
+    console.log("resultado "+this.name)
+}
 }
 
-function printResult(p1:number){
-    console.log("The result is: "+p1)
-}
+const prueba=new Department(" amigo")
 
-printResult(add(3,5))
+console.log(prueba)
+prueba.mostrar()
