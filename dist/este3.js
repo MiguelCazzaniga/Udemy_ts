@@ -1,9 +1,10 @@
-var Department = /** @class */ (function () {
+"use strict";
+var Department = (function () {
     function Department(n) {
         this.name = n;
     }
     Department.prototype.mostrar = function () {
-        console.log("resultado " + this.name);
+        console.log("resultadote " + this.name);
     };
     return Department;
 }());

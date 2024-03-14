@@ -5,11 +5,17 @@
   "main": "este.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"lite-server"
+    "start": "lite-server"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "lite-server": "^2.6.1"
+  },
+  "server": {
+    "baseDir": "./src",
+    "routes": {
+      "/node_modules": "node_modules"
+    }
   }
 }
