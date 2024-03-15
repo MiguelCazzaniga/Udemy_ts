@@ -1,26 +1,66 @@
-// interface
-// Describes the structure of objects
-// interface can not have an initializer
-// Interfaces do not describe the object complete  structure.
-// But ensures that the described element are part of the object.
-// An object coud reflect more than one interface on its structure
-// there are ways to make elements not mandatories (?) adding a questionb mark ot them
-
-interface Person{
-    name:string;
-    age:number;
-
-    greet(phrase:string):void
+//autobind decorator
+function autobind(
+  target: any,
+  methodName: string,
+  descriptor: PropertyDescriptor
+) {
+  const originalMethod= descriptor.value
+  const adjDescriptor: PropertyDescriptor = {
+    configurable: true,
+    get() {
+      const boundFn = originalMethod.bind(this)
+      return boundFn
+    },
+  }
+  return adjDescriptor
 }
 
-let user1:Person
+//
 
-user1={
-    name:"Miguel",
-    age:30,
-    greet(phrase:string){
-        console.log(phrase+" "+this.name)
-    }
+class ProjectInput {
+  templateElement: HTMLTemplateElement
+  hostElement: HTMLDivElement
+  element: HTMLFormElement
+  titleInputElement: HTMLInputElement
+  descriptionInputElement: HTMLInputElement
+  peopleInputElement: HTMLInputElement
+
+  constructor() {
+    this.templateElement = document.getElementById(
+      "project-input"
+    )! as HTMLTemplateElement
+    this.hostElement = document.getElementById("app")! as HTMLDivElement
+
+    const importedNode = document.importNode(this.templateElement.content, true)
+    this.element = importedNode.firstElementChild as HTMLFormElement
+    this.element.id = "user-input"
+
+    this.titleInputElement = this.element.querySelector(
+      "#title"
+    ) as HTMLInputElement
+    this.descriptionInputElement = this.element.querySelector(
+      "#description"
+    ) as HTMLInputElement
+    this.peopleInputElement = this.element.querySelector(
+      "#people"
+    ) as HTMLInputElement
+
+    this.configure()
+    this.attach()
+  }
+
+  @autobind
+  private submitHandler(event: Event) {
+    event.preventDefault()
+    console.log(this.titleInputElement.value)
+  }
+
+  private configure() {
+    this.element.addEventListener("submit", this.submitHandler)
+  }
+  private attach() {
+    this.hostElement.insertAdjacentElement("afterbegin", this.element)
+  }
 }
 
-user1.greet("hola")
+const prjInput = new ProjectInput()
